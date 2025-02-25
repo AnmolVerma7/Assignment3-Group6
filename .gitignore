@@ -1,1 +1,13 @@
-/bin/
+# Ignore everything
+*
+
+# Except the src and test directories
+!/src/
+!/test/
+
+# Ignore files in the settings directory
+.settings/
+
+# Ignore IDE-related files
+.classpath
+.project
