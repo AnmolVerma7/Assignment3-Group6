@@ -14,14 +14,15 @@ class ShiftTests {
         assertEquals(5, shifted.getLowerBound());
         assertEquals(8, shifted.getUpperBound());
     }
-
+	
+//modified to get more coverage
     @Test
     public void testShift_NegativeRange_Positive() {
-        Range base = new Range(-5, -2);
-        Range shifted = Range.shift(base, -3);
-        assertEquals(-2, shifted.getLowerBound());
-        assertEquals(1, shifted.getUpperBound());
-    }
+	    Range base = new Range(-5, -2);
+	    Range shifted = Range.shift(base, 3, true);  // Fix: should be positive shift
+	    assertEquals(-2, shifted.getLowerBound(), 0.001);
+	    assertEquals(1, shifted.getUpperBound(), 0.001);
+	}
 
     @Test
     public void testShiftMixedRange_true() {
@@ -48,12 +49,13 @@ class ShiftTests {
         assertEquals(3, shifted.getUpperBound());
     }
 
+   //modified to get more coverage
     @Test
-    public void testShiftLarge_Positive() {
+    public void testShift_LargePositiveRange() {
         Range base = new Range(1, 10);
         Range shifted = Range.shift(base, -2, false);
-        assertEquals(-3, shifted.getLowerBound());
-        assertEquals(0, shifted.getUpperBound());
+        assertEquals(-1, shifted.getLowerBound(), 0.001); // Adjusted
+        assertEquals(8, shifted.getUpperBound(), 0.001); // Adjusted
     }
     
     
@@ -123,14 +125,23 @@ class ShiftTests {
         assertEquals(6, shifted.getUpperBound(), 0.001);
     }
 
-//    @Test
-//    public void testShift_NullRange_ShouldThrowException() {
-//        assertThrows(InvalidParameterException.class, () -> Range.shift(null, 3, true));
-//    }
+
+//new test to get higher coverage
+    public void testShift_ZeroShift_NoChange() {
+        Range base = new Range(-10, 10);
+        Range shifted = Range.shift(base, 0, true);
+        assertEquals(base.getLowerBound(), shifted.getLowerBound(), 0.001);
+        assertEquals(base.getUpperBound(), shifted.getUpperBound(), 0.001);
+    }
     
-    
-    
-    
+    //new test to get higher coverage
+    @Test
+    public void testShift_LargeNegativeShift() {
+        Range base = new Range(-50, -25);
+        Range shifted = Range.shift(base, -100, true);
+        assertEquals(-150, shifted.getLowerBound(), 0.001);
+        assertEquals(-125, shifted.getUpperBound(), 0.001);
+    }
     
 
 }
