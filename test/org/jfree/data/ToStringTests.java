@@ -32,29 +32,33 @@ class ToStringTests {
         assertEquals("Range[5.0,5.0]", range.toString());
     }
 
+//modified to get more coverage
 @Test
-public void MinimumPositiveRange() {
-        Range range = new Range(1, 2);
-        assertEquals("Range[1,2]", range.toString());
-    }
+public void testToStringSmallestPositiveRange() {  
+    Range range = new Range(1, 2);
+    assertEquals("Range[1.0,2.0]", range.toString());  
+}
 
+//modified to get more coverage
 @Test
-public void MinimumNegativeRange() {
-        Range range = new Range(-2, -1);
-        assertEquals("Range[-2,-1]", range.toString());
-    }
+public void testToStringSmallestNegativeRange() {  
+    Range range = new Range(-2, -1);
+    assertEquals("Range[-2.0,-1.0]", range.toString());  
+}
 
+//modified to get more coverage
 @Test
-public void UpperBound() {
-        Range range = new Range(-5, 0);
-        assertEquals("Range[-5,0]", range.toString());
-    }
+public void testToStringWithUpperBoundZero() {  
+    Range range = new Range(-5, 0);
+    assertEquals("Range[-5.0,0.0]", range.toString());  
+}
 
+//modified to get more coverage
 @Test
-public void LowerBound() {
-        Range range = new Range(0, 5);
-        assertEquals("Range[0,5]", range.toString());
-    }
+public void testToStringWithLowerBoundZero() {  
+    Range range = new Range(0, 5);
+    assertEquals("Range[0.0,5.0]", range.toString());  
+}
 
 @Test
 public void largePositiveValue() {
@@ -62,10 +66,11 @@ Range range = new Range(1000000.0,1000001.0);
 assertEquals("Range[1000000.0,1000001.0]", range.toString());
 }
 
+//modified to get more coverage
 @Test
-public void largeNegativeValue() {
-Range range = new Range(-1000000.0,-1000001.0);
-assertEquals("Range[-1000000.0,-1000001.0]", range.toString());
+public void testToStringLargeNegativeRange() {
+    Range range = new Range(-1000001.0, -1000000.0);  // Fixed order
+    assertEquals("Range[-1000001.0,-1000000.0]", range.toString());
 }
 
 
@@ -74,6 +79,13 @@ public void testToStringWhen() {
 	Range mockRange = mock(Range.class);
 	when(mockRange.toString()).thenReturn("Range[2.0,10.0]");
     assertEquals("Range[2.0,10.0]", mockRange.toString());
+}
+	
+//Added test for decimals
+@Test
+public void testToStringDecimalValues() {
+    Range range = new Range(1.5, 3.75);
+    assertEquals("Range[1.5,3.75]", range.toString());  
 }
 
 }
